@@ -1,0 +1,59 @@
+FUNCIONARIO TERCERIZADO:
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ROLLBACK.Entidades
+{
+    class FuncionarioTerceirizado : Funcionario
+    {
+        public double DespesaAdicional { get; set; }
+
+        public FuncionarioTerceirizado()
+        {
+
+        }
+
+        public FuncionarioTerceirizado(string nome, int horas, double valorporhora, double despesaadicional) : base(nome, horas, valorporhora)
+        {
+            DespesaAdicional = despesaadicional;
+        }
+        public override double Pagamento()
+        {
+            return base.Pagamento() + 1.1 * DespesaAdicional;
+        }
+    } 
+            
+    }
+  
+  
+  FUNCIONARIOS:
+  
+  using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ROLLBACK.Entidades
+{
+    class Funcionario
+    {
+        public string Nome { get; set; }
+        public int Horas { get; set; }
+        public double ValorPorHora { get; set; }
+
+        public Funcionario()
+        { }
+
+        public Funcionario(string nome, int horas, double valorporhora)
+        {
+            Nome = nome;
+            Horas = horas;
+            ValorPorHora = valorporhora;
+        }
+        public virtual double Pagamento()
+        {
+            return Horas * ValorPorHora;
+        }
+    }
+}
