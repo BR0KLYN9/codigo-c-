@@ -57,3 +57,53 @@ namespace ROLLBACK.Entidades
         }
     }
 }
+
+PROGRAMA PRINCIPAL:
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace ROLLBACK.Entidades
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Funcionario> list = new List<Funcionario>();
+
+            Console.Write("Entre o número de funcionarios: ");
+            int n = int.Parse(Console.ReadLine());
+            for (int i = 1; i <= n; i++)
+            {
+                Console.WriteLine($"Funcionario #{i} data:");
+                Console.WriteLine("Terceriado (y/n)? ");
+                char ch = char.Parse(Console.ReadLine());
+                Console.WriteLine("Nome");
+                String Nome = Console.ReadLine();
+                Console.WriteLine("Horas");
+                int horas = int.Parse(Console.ReadLine());
+                Console.WriteLine("Valor por horas: ");
+                double valorPorHoras = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                if (ch == 'y')
+                {
+                    Console.WriteLine("Despesa Adicional: ");
+                    double despesaadicional = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                    list.Add(new FuncionarioTercerizado(Nome, horas, valorPorHoras, despesaadicional));
+                }
+                else
+                {
+                    list.Add(new Funcionario(Nome, horas, valorPorHoras));
+                }
+            }
+
+
+            Console.WriteLine();
+            Console.WriteLine("Pagamentos:");
+            foreach (Funcionario emp in list)
+            {
+                Console.WriteLine(emp.Nome + " - $ " + emp.Pagamento().ToString("F2", CultureInfo.InvariantCulture));
+            }
+        }
+    }
+}
